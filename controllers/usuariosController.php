@@ -29,6 +29,7 @@ switch ($option) {
             $data[$i]['accion'] = '<div class="d-flex">
                 <a class="btn btn-danger btn-sm" onclick="deleteUser(' . $data[$i]['idusuario'] . ')"><i class="fas fa-eraser"></i></a>
                 <a class="btn btn-primary btn-sm" onclick="editUser(' . $data[$i]['idusuario'] . ')"><i class="fas fa-edit"></i></a>
+                <a class="btn btn-info btn-sm" onclick="permisos(' . $data[$i]['idusuario'] . ')"><i class="fas fa-lock"></i></a>
                 </div>';
         }
         echo json_encode($data);
@@ -76,6 +77,26 @@ switch ($option) {
         $data = $usuarios->getUser($id);
         echo json_encode($data);
         break;
+    case 'permisos':
+        $id = $_GET['id'];
+        $data['permisos'] = $usuarios->getPermisos();
+        $consulta = $usuarios->getDetalle($id);
+        $datos = array();
+        foreach ($consulta as $asignado) {
+            $datos[$asignado['id_permiso']] = true;
+        }
+        $data['asig'] = $datos;
+        echo json_encode($data);
+        break;
+    
+        case 'savePermiso':
+            $id_user = $_POST['id_usuario'];
+            $usuarios->eliminarPermisos($id_user);
+            for ($i=0; $i < count($_POST['permisos']); $i++) { 
+                $usuarios->savePermiso($_POST['permisos'][$i], $id_user);
+            }
+            //echo json_encode($res);
+            break;
 
     default:
         # code...

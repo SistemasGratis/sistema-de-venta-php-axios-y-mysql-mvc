@@ -57,3 +57,22 @@
         </div>
     </div>
 </div>
+
+<div id="modalPermiso" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Agregar permisos</h5>
+                <button class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- html permisos -->
+                <form id="frmPermiso">
+                    
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

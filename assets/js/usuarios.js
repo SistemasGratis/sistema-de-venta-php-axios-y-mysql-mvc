@@ -1,4 +1,5 @@
 const frm = document.querySelector('#frmUser');
+const permiso = document.querySelector('#frmPermiso');
 const correo = document.querySelector('#correo');
 const nombre = document.querySelector('#nombre');
 const clave = document.querySelector('#clave');
@@ -51,6 +52,27 @@ document.addEventListener('DOMContentLoaded', function () {
     clave.removeAttribute('readonly');
     nombre.focus();
   }
+
+  permiso.onsubmit = function (e) {
+    e.preventDefault();
+    const frmData = new FormData(this);
+      axios.post(ruta + 'controllers/usuariosController.php?option=savePermiso', frmData)
+        .then(function (response) {
+          console.log(response);
+          return;
+          const info = response.data;
+          message(info.tipo, info.mensaje);
+          if (info.tipo == 'success') {
+            setTimeout(() => {
+              window.location.reload();
+            }, 1500);
+          }
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+  }
+
 })
 
 function deleteUser(id) {
@@ -88,6 +110,29 @@ function editUser(id) {
       clave.setAttribute('readonly', 'readonly');
       id_user.value = info.idusuario;
       btn_save.innerHTML = 'Actualizar';
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+}
+
+function permisos(id) {
+  axios.get(ruta + 'controllers/usuariosController.php?option=permisos&id=' + id)
+    .then(function (response) {
+      const info = response.data;
+      let html = '';
+      info.permisos.forEach(permiso => {
+        let accion = info.asig[permiso.id] ? 'checked' : '';
+        html += `<div class="btn-group-toggle" data-toggle="buttons">
+            <label class="mb-2">
+                <input type="checkbox" name="permisos[]" value="${permiso.id}" ${accion}> ${permiso.nombre}
+            </label>
+        </div>`;
+      });
+      html += `<input name="id_usuario" type="hidden" value="${id}" />
+      <button class="btn btn-outline-success float-right" type="submit">Guardar</button>`;
+      permiso.innerHTML = html;
+      $('#modalPermiso').modal('show');
     })
     .catch(function (error) {
       console.log(error);
