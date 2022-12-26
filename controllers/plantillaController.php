@@ -3,11 +3,6 @@ class Plantilla{
     //pagina principal
     public function index()
     {
-        require_once __DIR__ . '../../models/home.php';
-        $home = new HomeModel();
-        $usuario = $home->getData('usuario');
-        $cliente = $home->getData('cliente');
-        $producto = $home->getData('producto');
         include_once 'views/principal.php';
     }
     //pagina clientes

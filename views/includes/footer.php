@@ -53,12 +53,13 @@
 <!-- Custom scripts for all pages-->
 <script src="<?php echo RUTA . 'assets/'; ?>js/sb-admin-2.min.js"></script>
 
+<script src="<?php echo RUTA . 'assets/'; ?>js/chart.js"></script>
 <!-- Page level custom scripts -->
 <script src="<?php echo RUTA . 'assets/'; ?>vendor/fontawesome-free/all.min.js"></script>
 <script src="<?php echo RUTA . 'assets/'; ?>js/snackbar.min.js"></script>
-<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="<?php echo RUTA . 'assets/'; ?>js/axios.min.js"></script>
 
-<script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.13.1/datatables.min.js"></script>
+<script type="text/javascript" src="<?php echo RUTA . 'assets/'; ?>js/datatables.min.js"></script>
 <script>
     const ruta = '<?php echo RUTA; ?>';
 
@@ -77,6 +78,8 @@ if (!empty($_GET['pagina'])) {
     if (file_exists('assets/js/' . $script)) {
         echo '<script src="'. RUTA . 'assets/js/' . $script .'"></script>';
     }
+}else{
+    echo '<script src="'. RUTA . 'assets/js/index.js"></script>';
 } ?>
 
 </body>

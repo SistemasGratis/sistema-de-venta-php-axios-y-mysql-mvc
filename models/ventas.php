@@ -67,10 +67,10 @@ class Ventas{
         return $consult->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function saveVenta($id_cliente, $total, $metodo, $id_user)
+    public function saveVenta($id_cliente, $total, $metodo, $fecha, $id_user)
     {
-        $consult = $this->pdo->prepare("INSERT INTO ventas (id_cliente, total, metodo, id_usuario) VALUES (?,?,?,?)");
-        $consult->execute([$id_cliente, $total, $metodo, $id_user]);
+        $consult = $this->pdo->prepare("INSERT INTO ventas (id_cliente, total, metodo, fecha, id_usuario) VALUES (?, ?,?,?,?)");
+        $consult->execute([$id_cliente, $total, $metodo, $fecha, $id_user]);
         return $this->pdo->lastInsertId();
     }
 

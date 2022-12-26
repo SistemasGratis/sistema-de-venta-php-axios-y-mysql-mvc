@@ -86,6 +86,7 @@ switch ($option) {
         $array = json_decode($accion, true);
         $id_cliente = $array['idCliente'];
         $metodo = $array['metodo'];
+        $fecha = date('Y-m-d');
         $consult = $ventas->getProductsUsers($id_user);
         if (empty($consult)) {
             $res = array('tipo' => 'error', 'mensaje' => 'CARRITO VACIO');
@@ -94,7 +95,7 @@ switch ($option) {
             foreach ($consult as $temp) {
                 $total += $temp['cantidad'] * $temp['precio'];
             }
-            $sale = $ventas->saveVenta($id_cliente, $total, $metodo, $id_user);
+            $sale = $ventas->saveVenta($id_cliente, $total, $metodo, $fecha, $id_user);
             if ($sale > 0) {
                 foreach ($consult as $temp) {
                     $ventas->saveDetalle($temp['id_producto'], $sale, $temp['cantidad'], $temp['precio']);
