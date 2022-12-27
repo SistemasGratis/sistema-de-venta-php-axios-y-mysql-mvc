@@ -18,7 +18,7 @@
     <link href="<?php echo RUTA . 'assets/'; ?>css/sb-admin-2.min.css" rel="stylesheet">
     <link href="<?php echo RUTA . 'assets/'; ?>css/snackbar.min.css" rel="stylesheet">
     <link href="<?php echo RUTA . 'assets/'; ?>css/iframe.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="<?php echo RUTA . 'assets/'; ?>css/datatables.min.css"/>
+    <link rel="stylesheet" type="text/css" href="<?php echo RUTA . 'assets/'; ?>css/datatables.min.css" />
 </head>
 
 <body id="page-top">
@@ -54,52 +54,61 @@
             <div class="sidebar-heading">
                 Contenido
             </div>
+            <?php if (!empty($clientes)) { ?>
+                <!-- Nav Item - Pages Collapse Menu -->
+                <li class="nav-item">
+                    <a class="nav-link" href="?pagina=clientes">
+                        <i class="fas fa-fw fa-users"></i>
+                        <span>Clientes</span>
+                    </a>
+                </li>
+            <?php } ?>
 
-            <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link" href="?pagina=clientes">
-                    <i class="fas fa-fw fa-users"></i>
-                    <span>Clientes</span>
-                </a>
-            </li>
+            <?php if (!empty($usuarios)) { ?>
+                <!-- Divider -->
+                <hr class="sidebar-divider d-none d-md-block">
+                <li class="nav-item">
+                    <a class="nav-link" href="?pagina=usuarios">
+                        <i class="fas fa-fw fa-user"></i>
+                        <span>Usuarios</span>
+                    </a>
+                </li>
+            <?php } ?>
+
+            <?php if (!empty($productos)) { ?>
+                <!-- Divider -->
+                <hr class="sidebar-divider d-none d-md-block">
+
+                <li class="nav-item">
+                    <a class="nav-link" href="?pagina=productos">
+                        <i class="fas fa-fw fa-list"></i>
+                        <span>Productos</span>
+                    </a>
+                </li>
+            <?php } ?>
 
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
-
-            <li class="nav-item">
-                <a class="nav-link" href="?pagina=usuarios">
-                    <i class="fas fa-fw fa-user"></i>
-                    <span>Usuarios</span>
-                </a>
-            </li>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider d-none d-md-block">
-
-            <li class="nav-item">
-                <a class="nav-link" href="?pagina=productos">
-                    <i class="fas fa-fw fa-list"></i>
-                    <span>Productos</span>
-                </a>
-            </li>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider d-none d-md-block">
-
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseVenta" aria-expanded="true" aria-controls="collapseVenta">
-                <i class="fas fa-cash-register"></i>
-                    <span>Ventas</span>
-                    <i class="fas fa-chevron-right float-right"></i>
-                </a>
-                <div id="collapseVenta" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="?pagina=ventas">Nueva venta</a>
-                        <a class="collapse-item" href="?pagina=historial">Lista ventas</a>
+            <?php if (!empty($nueva_venta) || !empty($ventas)) { ?>
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseVenta" aria-expanded="true" aria-controls="collapseVenta">
+                        <i class="fas fa-cash-register"></i>
+                        <span>Ventas</span>
+                        <i class="fas fa-chevron-right float-right"></i>
+                    </a>
+                    <div id="collapseVenta" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <?php
+                            if (!empty($nueva_venta)) { ?>
+                                <a class="collapse-item" href="?pagina=ventas">Nueva venta</a>
+                            <?php }
+                            if (!empty($ventas)) { ?>
+                                <a class="collapse-item" href="?pagina=historial">Lista ventas</a>
+                            <?php } ?>
+                        </div>
                     </div>
-                </div>
-            </li>
-
+                </li>
+            <?php } ?>
             <!-- Sidebar Toggler (Sidebar) -->
             <div class="text-center d-none d-md-inline">
                 <button class="rounded-circle border-0" id="sidebarToggle"></button>

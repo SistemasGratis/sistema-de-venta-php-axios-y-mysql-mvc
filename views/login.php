@@ -81,7 +81,7 @@
     <!-- Custom scripts for all pages-->
     <script src="<?php echo RUTA . 'assets/'; ?>js/sb-admin-2.min.js"></script>
     <script src="<?php echo RUTA . 'assets/'; ?>js/snackbar.min.js"></script>
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="<?php echo RUTA . 'assets/'; ?>js/axios.min.js"></script>
     <script>
         const ruta = '<?php echo RUTA; ?>';
     </script>

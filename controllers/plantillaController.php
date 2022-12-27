@@ -25,7 +25,7 @@ class Plantilla{
     {
         include_once 'views/ventas/reporte.php';
     }
-    //vista reporte ticket
+    //historial ventas
     public function historial()
     {
         include_once 'views/ventas/historial.php';
