@@ -109,6 +109,18 @@
                     </div>
                 </li>
             <?php } ?>
+
+            <?php if (!empty($configuracion)) { ?>
+                <!-- Divider -->
+                <hr class="sidebar-divider d-none d-md-block">
+
+                <li class="nav-item">
+                    <a class="nav-link" href="?pagina=configuracion">
+                        <i class="fas fa-user-cog"></i>
+                        <span>Configuración</span>
+                    </a>
+                </li>
+            <?php } ?>
             <!-- Sidebar Toggler (Sidebar) -->
             <div class="text-center d-none d-md-inline">
                 <button class="rounded-circle border-0" id="sidebarToggle"></button>

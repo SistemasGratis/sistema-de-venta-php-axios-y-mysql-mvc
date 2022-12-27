@@ -7,6 +7,7 @@ $plantilla = new Plantilla();
 require_once 'models/permisos.php';
 $id_user = $_SESSION['idusuario'];
 $permisos = new PermisosModel();
+$configuracion = $permisos->getPermiso(1, $id_user);
 $usuarios = $permisos->getPermiso(2, $id_user);
 $clientes = $permisos->getPermiso(3, $id_user);
 $productos = $permisos->getPermiso(4, $id_user);
@@ -22,6 +23,8 @@ if (isset($_GET['pagina'])) {
         try {
             $archivo = $_GET['pagina'];
             if ($archivo == 'usuarios' && !empty($usuarios)) {
+                $plantilla->$archivo();
+            } else if ($archivo == 'configuracion' && !empty($configuracion)) {
                 $plantilla->$archivo();
             } else if ($archivo == 'clientes' && !empty($clientes)) {
                 $plantilla->$archivo();

@@ -15,6 +15,11 @@ class Plantilla{
     {
         include_once 'views/usuarios/index.php';
     }
+    //pagina configuracion
+    public function configuracion()
+    {
+        include_once 'views/usuarios/configuracion.php';
+    }
     //pagina ventas
     public function ventas()
     {

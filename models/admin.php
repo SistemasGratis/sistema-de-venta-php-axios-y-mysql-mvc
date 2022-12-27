@@ -35,6 +35,19 @@ class AdminModel{
         $consult->execute([$fecha, $actual, $id_user]);
         return $consult->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public function getDato()
+    {
+        $consult = $this->pdo->prepare("SELECT * FROM configuracion");
+        $consult->execute();
+        return $consult->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public function saveDatos($nombre, $telefono, $correo, $direccion, $id)
+    {
+        $consult = $this->pdo->prepare("UPDATE configuracion SET nombre=?, telefono=?, email=?, direccion=? WHERE id = ?");
+        return $consult->execute([$nombre, $telefono, $correo, $direccion, $id]);
+    }
 }
 
 ?>
