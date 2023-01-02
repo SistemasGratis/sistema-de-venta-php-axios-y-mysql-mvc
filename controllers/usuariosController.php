@@ -88,15 +88,24 @@ switch ($option) {
         $data['asig'] = $datos;
         echo json_encode($data);
         break;
-    
-        case 'savePermiso':
-            $id_user = $_POST['id_usuario'];
-            $usuarios->eliminarPermisos($id_user);
-            for ($i=0; $i < count($_POST['permisos']); $i++) { 
-                $usuarios->savePermiso($_POST['permisos'][$i], $id_user);
+
+    case 'savePermiso':
+        $id_user = $_POST['id_usuario'];
+        $usuarios->eliminarPermisos($id_user);
+        $res = true;
+        if (!empty($_POST['permisos'])) {
+            for ($i = 0; $i < count($_POST['permisos']); $i++) {
+                $res = $usuarios->savePermiso($_POST['permisos'][$i], $id_user);
             }
-            //echo json_encode($res);
-            break;
+            if ($res) {
+                $res = array('tipo' => 'success', 'mensaje' => 'PERMISOS ASIGNADO');
+            } else {
+                $res = array('tipo' => 'error', 'mensaje' => 'ERROR AL AGREGAR LOS PERMISOS');
+            }
+            
+        }
+        echo json_encode($res);
+        break;
 
     default:
         # code...

@@ -58,15 +58,8 @@ document.addEventListener('DOMContentLoaded', function () {
     const frmData = new FormData(this);
       axios.post(ruta + 'controllers/usuariosController.php?option=savePermiso', frmData)
         .then(function (response) {
-          console.log(response);
-          return;
           const info = response.data;
           message(info.tipo, info.mensaje);
-          if (info.tipo == 'success') {
-            setTimeout(() => {
-              window.location.reload();
-            }, 1500);
-          }
         })
         .catch(function (error) {
           console.log(error);
@@ -123,11 +116,11 @@ function permisos(id) {
       let html = '';
       info.permisos.forEach(permiso => {
         let accion = info.asig[permiso.id] ? 'checked' : '';
-        html += `<div class="btn-group-toggle" data-toggle="buttons">
+        html += `<div>
             <label class="mb-2">
                 <input type="checkbox" name="permisos[]" value="${permiso.id}" ${accion}> ${permiso.nombre}
             </label>
-        </div>`;
+            </div>`;
       });
       html += `<input name="id_usuario" type="hidden" value="${id}" />
       <button class="btn btn-outline-success float-right" type="submit">Guardar</button>`;

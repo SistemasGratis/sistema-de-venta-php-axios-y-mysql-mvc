@@ -60,6 +60,8 @@
 <script src="<?php echo RUTA . 'assets/'; ?>js/axios.min.js"></script>
 
 <script type="text/javascript" src="<?php echo RUTA . 'assets/'; ?>js/datatables.min.js"></script>
+<script type="text/javascript" src="<?php echo RUTA . 'assets/'; ?>js/moment.min.js"></script>
+<script type="text/javascript" src="<?php echo RUTA . 'assets/'; ?>js/dataTables.dateTime.min.js"></script>
 <script>
     const ruta = '<?php echo RUTA; ?>';
 

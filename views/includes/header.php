@@ -19,15 +19,23 @@
     <link href="<?php echo RUTA . 'assets/'; ?>css/snackbar.min.css" rel="stylesheet">
     <link href="<?php echo RUTA . 'assets/'; ?>css/iframe.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="<?php echo RUTA . 'assets/'; ?>css/datatables.min.css" />
+    <link rel="stylesheet" type="text/css" href="<?php echo RUTA . 'assets/'; ?>css/dataTables.dateTime.min.css" />
 </head>
+<?php $mini = false;
+if (!empty($_GET['pagina'])) {
+    if ($_GET['pagina'] == 'ventas' || $_GET['pagina'] == 'compras') {
+        $mini = true;
+    }
+}
+?>
 
-<body id="page-top">
+<body id="page-top" class="<?php echo ($mini) ? 'sidebar-toggled' : ''; ?>">
 
     <!-- Page Wrapper -->
     <div id="wrapper">
 
         <!-- Sidebar -->
-        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion <?php echo ($mini) ? 'toggled' : ''; ?>" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="plantilla.php">
@@ -41,9 +49,9 @@
             <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Dashboard -->
-            <li class="nav-item active">
+            <li class="nav-item <?php echo (empty($_GET['pagina'])) ? 'bg-gradient-info' : ''; ?>">
                 <a class="nav-link" href="plantilla.php">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <i class="fas fa-chart-pie"></i>
                     <span>Dashboard</span></a>
             </li>
 
@@ -56,7 +64,7 @@
             </div>
             <?php if (!empty($clientes)) { ?>
                 <!-- Nav Item - Pages Collapse Menu -->
-                <li class="nav-item">
+                <li class="nav-item <?php echo (!empty($_GET['pagina'])  && $_GET['pagina'] == 'clientes') ? 'bg-gradient-info' : ''; ?>">
                     <a class="nav-link" href="?pagina=clientes">
                         <i class="fas fa-fw fa-users"></i>
                         <span>Clientes</span>
@@ -64,10 +72,21 @@
                 </li>
             <?php } ?>
 
+            <?php if (!empty($proveedor)) { ?>
+                <hr class="sidebar-divider d-none d-md-block">
+                <!-- Nav Item - Pages Collapse Menu -->
+                <li class="nav-item <?php echo (!empty($_GET['pagina'])  && $_GET['pagina'] == 'proveedor') ? 'bg-gradient-info' : ''; ?>">
+                    <a class="nav-link" href="?pagina=proveedor">
+                        <i class="fas fa-store"></i>
+                        <span>Proveedores</span>
+                    </a>
+                </li>
+            <?php } ?>
+
             <?php if (!empty($usuarios)) { ?>
                 <!-- Divider -->
                 <hr class="sidebar-divider d-none d-md-block">
-                <li class="nav-item">
+                <li class="nav-item <?php echo (!empty($_GET['pagina'])  && $_GET['pagina'] == 'usuarios') ? 'bg-gradient-info' : ''; ?>">
                     <a class="nav-link" href="?pagina=usuarios">
                         <i class="fas fa-fw fa-user"></i>
                         <span>Usuarios</span>
@@ -79,7 +98,7 @@
                 <!-- Divider -->
                 <hr class="sidebar-divider d-none d-md-block">
 
-                <li class="nav-item">
+                <li class="nav-item <?php echo (!empty($_GET['pagina'])  && $_GET['pagina'] == 'productos') ? 'bg-gradient-info' : ''; ?>">
                     <a class="nav-link" href="?pagina=productos">
                         <i class="fas fa-fw fa-list"></i>
                         <span>Productos</span>
@@ -87,10 +106,33 @@
                 </li>
             <?php } ?>
 
+            <?php if (!empty($nueva_compra) || !empty($compras)) { ?>
+                <!-- Divider -->
+                <hr class="sidebar-divider d-none d-md-block">
+                <li class="nav-item <?php echo (!empty($_GET['pagina'])  && $_GET['pagina'] == 'compras' || !empty($_GET['pagina'])  && $_GET['pagina'] == 'historial_compras') ? 'bg-gradient-info' : ''; ?>">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseCompra" aria-expanded="true" aria-controls="collapseCompra">
+                        <i class="fas fa-cart-plus"></i>
+                        <span>Compras</span>
+                        <i class="fas fa-chevron-right float-right"></i>
+                    </a>
+                    <div id="collapseCompra" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <?php
+                            if (!empty($nueva_compra)) { ?>
+                                <a class="collapse-item" href="?pagina=compras">Nueva compra</a>
+                            <?php }
+                            if (!empty($compras)) { ?>
+                                <a class="collapse-item" href="?pagina=historial_compras">Lista compras</a>
+                            <?php } ?>
+                        </div>
+                    </div>
+                </li>
+            <?php } ?>
+
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
             <?php if (!empty($nueva_venta) || !empty($ventas)) { ?>
-                <li class="nav-item">
+                <li class="nav-item <?php echo (!empty($_GET['pagina'])  && $_GET['pagina'] == 'ventas' || !empty($_GET['pagina'])  && $_GET['pagina'] == 'historial') ? 'bg-gradient-info' : ''; ?>">
                     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseVenta" aria-expanded="true" aria-controls="collapseVenta">
                         <i class="fas fa-cash-register"></i>
                         <span>Ventas</span>
@@ -114,7 +156,7 @@
                 <!-- Divider -->
                 <hr class="sidebar-divider d-none d-md-block">
 
-                <li class="nav-item">
+                <li class="nav-item <?php echo (!empty($_GET['pagina']) && $_GET['pagina'] == 'configuracion') ? 'bg-gradient-info' : ''; ?>">
                     <a class="nav-link" href="?pagina=configuracion">
                         <i class="fas fa-user-cog"></i>
                         <span>Configuración</span>
@@ -122,8 +164,8 @@
                 </li>
             <?php } ?>
             <!-- Sidebar Toggler (Sidebar) -->
-            <div class="text-center d-none d-md-inline">
-                <button class="rounded-circle border-0" id="sidebarToggle"></button>
+            <div class="text-center d-none d-md-inline mt-3">
+                <button class="rounded-circle border-0" id="sidebarToggle"><i class="fas fa-chevron-circle-left text-gray-400"></i></button>
             </div>
 
         </ul>

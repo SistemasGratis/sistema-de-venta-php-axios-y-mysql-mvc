@@ -13,6 +13,9 @@ $clientes = $permisos->getPermiso(3, $id_user);
 $productos = $permisos->getPermiso(4, $id_user);
 $ventas = $permisos->getPermiso(5, $id_user);
 $nueva_venta = $permisos->getPermiso(6, $id_user);
+$compras = $permisos->getPermiso(7, $id_user);
+$nueva_compra = $permisos->getPermiso(8, $id_user);
+$proveedor = $permisos->getPermiso(9, $id_user);
 
 ##### FIN PERMISOS ####
 require_once 'views/includes/header.php';
@@ -23,21 +26,31 @@ if (isset($_GET['pagina'])) {
         try {
             $archivo = $_GET['pagina'];
             if ($archivo == 'usuarios' && !empty($usuarios)) {
-                $plantilla->$archivo();
+                $plantilla->usuarios();
             } else if ($archivo == 'configuracion' && !empty($configuracion)) {
-                $plantilla->$archivo();
+                $plantilla->configuracion();
             } else if ($archivo == 'clientes' && !empty($clientes)) {
-                $plantilla->$archivo();
-            } else if ($archivo == 'productos' && !empty($productos)) {
-                $plantilla->$archivo();
+                $plantilla->clientes();
+            } else if ($archivo == 'proveedor' && !empty($proveedor)) {
+                $plantilla->proveedor();
+            }else if ($archivo == 'productos' && !empty($productos)) {
+                $plantilla->productos();
             } else if ($archivo == 'ventas' && !empty($nueva_venta)) {
-                $plantilla->$archivo();
-            } else if ($archivo == 'historial' && !empty($ventas)) {
-                $plantilla->$archivo();
-            } else{
+                $plantilla->ventas();
+            } else if ($archivo == 'historial' && !empty($ventas)) {                
+                $plantilla->historial();
+            } else if ($archivo == 'reporte' && !empty($ventas)) {
+                $plantilla->reporte();
+            } else if ($archivo == 'compras' && !empty($nueva_compra)) {
+                $plantilla->compras();
+            } else if ($archivo == 'historial_compras' && !empty($ventas)) {
+                $plantilla->historial_compras();
+            } else if ($archivo == 'reporte_compra' && !empty($compras)) {
+                $plantilla->reporte_compra();
+            } else{                
                 $plantilla->notFound();
             }          
-        } catch (\Throwable $th) {
+        } catch (\Throwable $th) {            
             $plantilla->notFound();
         }
     }
